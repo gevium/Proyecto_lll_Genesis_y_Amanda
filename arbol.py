@@ -150,9 +150,9 @@ class ArbolDecision:
                 self._reemplazar(self.hijoder(arbol), objetivo, reemplazo)      #buscamos en rama No
             ]
 
-    # ─────────────────────────────────────────────
+    #####################################################################################
     # Serializacion (para ManejadorArchivo)
-    # ─────────────────────────────────────────────
+    #####################################################################################
 
     #E: nada
     #S: lista que representa el arbol completo

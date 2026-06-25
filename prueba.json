@@ -1,0 +1,13 @@
+[
+  "¿Es una fruta?",
+  [
+    "¿Es cítrica?",
+    "naranja",
+    "mango"
+  ],
+  [
+    "¿Es comida rápida?",
+    "hamburguesa",
+    "arroz con pollo"
+  ]
+]
