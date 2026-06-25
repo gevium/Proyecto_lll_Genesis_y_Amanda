@@ -68,9 +68,9 @@ class ArbolDecision:
         else:
             return [centro, hi, hd]
 
-    # ─────────────────────────────────────────────
+    ####################################################################################
     # Arbol por defecto
-    # ─────────────────────────────────────────────
+    ####################################################################################
 
     #E: nada
     #S: nada
@@ -83,9 +83,9 @@ class ArbolDecision:
         ]
         self.nodo_actual = self.arbol
 
-    # ─────────────────────────────────────────────
+    ####################################################################################
     # Control de partida
-    # ─────────────────────────────────────────────
+    ####################################################################################
 
     #E: nada
     #S: nada
@@ -114,9 +114,9 @@ class ArbolDecision:
         else:
             self.nodo_actual = self.hijoder(self.nodo_actual)   #rama No
 
-    # ─────────────────────────────────────────────
+    ####################################################################################
     # Aprendizaje
-    # ─────────────────────────────────────────────
+    ####################################################################################
 
     #E: string respuesta correcta, string nueva pregunta, booleano si la respuesta es Si
     #S: nada
@@ -131,5 +131,40 @@ class ArbolDecision:
 
         self.arbol = self._reemplazar(self.arbol, incorrecta, nuevo_nodo)   #actualizamos el arbol
         self.nodo_actual = self.arbol
+
+    #E: arbol, string objetivo a reemplazar, nodo reemplazo
+    #S: arbol actualizado
+    #Recorre el arbol recursivamente y reemplaza el nodo objetivo por el reemplazo
+    def _reemplazar(self, arbol, objetivo, reemplazo):
+        if arbol == []:
+            return []                   #arbol vacio, nada que reemplazar
+        elif self.atomo(arbol):
+            if arbol == objetivo:
+                return reemplazo        #encontramos el nodo, lo reemplazamos
+            else:
+                return arbol            #no es el nodo buscado, lo dejamos igual
+        else:
+            return [
+                self.raiz(arbol),                                               #raiz se mantiene
+                self._reemplazar(self.hijoizq(arbol), objetivo, reemplazo),     #buscamos en rama Si
+                self._reemplazar(self.hijoder(arbol), objetivo, reemplazo)      #buscamos en rama No
+            ]
+
+    # ─────────────────────────────────────────────
+    # Serializacion (para ManejadorArchivo)
+    # ─────────────────────────────────────────────
+
+    #E: nada
+    #S: lista que representa el arbol completo
+    #Retorna el arbol como lista para guardarlo en JSON
+    def a_diccionario(self):
+        return self.arbol               #el arbol ya es una lista, se guarda directo
+
+    #E: lista con los datos cargados del archivo
+    #S: nada
+    #Reconstruye el arbol desde los datos cargados
+    def desde_diccionario(self, datos):
+        self.arbol = datos
+        self.nodo_actual = self.arbol   #reiniciamos al nodo raiz
 
 
