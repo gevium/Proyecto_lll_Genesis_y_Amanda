@@ -2,6 +2,11 @@ import json
 import os
 from arbol import ArbolDecision
 
+"""
+#####################################################################
+GESTOR DE ARCHIVOS
+#####################################################################
+"""
 #Clase para gestionar los archivos
 class ManejadorArchivo:
 
@@ -14,6 +19,8 @@ class ManejadorArchivo:
 
 
             with open(ruta, "w", encoding="utf-8") as archivo:
+                #dumb: permite convertir automáticamente los tipos de datos de Python en su forma equivalente en Json
+                #ensure_ascii permite asegurar que el archivo solo contenga caracteres ascii
                 json.dump(datos, archivo, ensure_ascii=False, indent=2)
 
             return True, ""
@@ -41,7 +48,7 @@ class ManejadorArchivo:
             with open(ruta, "r", encoding="utf-8") as archivo:
                 datos = json.load(archivo)
 
-            #Validar estructura mínima
+            #Validar que tenga la estructura mínima
             if not self._validar_estructura(datos):
                 return False, "El archivo tiene un formato incorrecto o está dañado."
 
@@ -69,3 +76,10 @@ class ManejadorArchivo:
             return False                        #la raiz debe ser string no vacio
         return (self._validar_estructura(datos[1]) and    #validar rama Si
                 self._validar_estructura(datos[2]))        #validar rama No
+
+
+"""
+#####################################################################
+INTERFAZ GRÁFICA 
+#####################################################################
+"""
