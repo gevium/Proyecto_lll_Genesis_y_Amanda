@@ -1,0 +1,13 @@
+# Archivos compilados de Python (se regeneran solos, no deben subirse)
+__pycache__/
+*.pyc
+*.pyo
+
+# Entornos virtuales
+venv/
+.venv/
+
+# Archivos de editores/SO
+.vscode/
+.idea/
+.DS_Store
