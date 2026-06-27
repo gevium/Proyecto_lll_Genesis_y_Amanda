@@ -59,8 +59,10 @@ class ManejadorArchivo:
             return False, "El archivo no es un JSON válido."
         except KeyError as e:
             return False, f"El archivo está incompleto, falta la clave: {e}"
-        except OSError as e:
+        except (OSError, UnicodeDecodeError) as e:
             return False, f"No se pudo leer el archivo: {e}"
+        except Exception as e:
+            return False, f"Ocurrió un error inesperado al leer el archivo: {e}"
 
     #E: datos cargados del JSON
     #S: booleano
