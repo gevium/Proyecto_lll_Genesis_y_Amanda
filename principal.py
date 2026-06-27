@@ -190,7 +190,7 @@ class InterfazJuego:
         #INSTRUCCIONES
         instrucciones = (
             "Reglas:\n"
-            " • Piensa en una comida, fruta o ingrediente\n"
+            " • Piensa en algo\n"
             " • Responde Sí o No a mis preguntas\n"
             " • Si no adivino, me enseñas y aprendo para siempre"
         )

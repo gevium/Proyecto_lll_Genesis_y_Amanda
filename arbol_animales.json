@@ -1,0 +1,45 @@
+[
+  "¿Vive en el agua?",
+  [
+    "¿Tiene tentáculos?",
+    "pulpo",
+    [
+      "¿Tiene aletas y branquias toda su vida?",
+      "tiburón",
+      "rana"
+    ]
+  ],
+  [
+    "¿Puede volar?",
+    [
+      "¿Tiene plumas?",
+      "águila",
+      "abeja"
+    ],
+    [
+      "¿Es un mamífero?",
+      [
+        "¿Es muy grande?",
+        [
+          "¿Tiene trompa?",
+          "elefante",
+          "jirafa"
+        ],
+        [
+          "¿Vive en manada salvaje?",
+          "lobo",
+          [
+            "¿Es domesticado?",
+            [
+              "¿Maúlla?",
+              "gato",
+              "perro"
+            ],
+            "oso"
+          ]
+        ]
+      ],
+      "serpiente"
+    ]
+  ]
+]

@@ -1,0 +1,45 @@
+[
+  "¿Tiene cuerdas?",
+  [
+    "¿Se toca con arco?",
+    [
+      "¿Es muy grande y grave?",
+      "contrabajo",
+      "violín"
+    ],
+    [
+      "¿Tiene teclas?",
+      [
+        "¿Se toca presionando teclas con aire de fuelle?",
+        "acordeón",
+        "piano"
+      ],
+      [
+        "¿Tiene forma triangular grande?",
+        "arpa",
+        "guitarra"
+      ]
+    ]
+  ],
+  [
+    "¿Se sopla para producir sonido?",
+    [
+      "¿Tiene boquilla de metal?",
+      [
+        "¿Tiene válvulas o pistones?",
+        "trompeta",
+        "saxofón"
+      ],
+      "flauta"
+    ],
+    [
+      "¿Tiene teclas de madera que se golpean?",
+      "marimba",
+      [
+        "¿Tiene parche de cuero?",
+        "tambor",
+        "batería"
+      ]
+    ]
+  ]
+]

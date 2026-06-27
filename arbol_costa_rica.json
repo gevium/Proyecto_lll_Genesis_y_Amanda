@@ -1,0 +1,45 @@
+[
+  "¿Está relacionado con un volcán?",
+  [
+    "¿Está en la zona norte del país?",
+    [
+      "¿Es muy visitado por turistas extranjeros?",
+      [
+        "¿Tiene un cráter con laguna visible?",
+        "Volcán Poás",
+        "Volcán Irazú"
+      ],
+      "Rincón de la Vieja"
+    ],
+    "Volcán Barva"
+  ],
+  [
+    "¿Está en la costa?",
+    [
+      "¿Está en el Pacífico?",
+      [
+        "¿Es conocida por el surf?",
+        "Playa Tamarindo",
+        "Manuel Antonio"
+      ],
+      [
+        "¿Tiene tortugas marinas?",
+        "Tortuguero",
+        "Cahuita"
+      ]
+    ],
+    [
+      "¿Es una isla alejada del continente?",
+      "Isla del Coco",
+      [
+        "¿Es un bosque nuboso?",
+        "Monteverde",
+        [
+          "¿El agua tiene un color turquesa especial?",
+          "Río Celeste",
+          "Catarata La Fortuna"
+        ]
+      ]
+    ]
+  ]
+]
