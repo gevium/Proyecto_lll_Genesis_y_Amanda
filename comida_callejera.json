@@ -1,0 +1,45 @@
+[
+  "¿Se sirve en pan?",
+  [
+    "¿El pan es redondo?",
+    [
+      "¿Lleva carne de res?",
+      "Hamburguesa",
+      [
+        "¿Lleva salchicha?",
+        "Hot dog",
+        "Sándwich de pollo"
+      ]
+    ],
+    [
+      "¿Se dobla?",
+      "Taco",
+      "Burrito"
+    ]
+  ],
+  [
+    "¿Es una fritura?",
+    [
+      "¿Está hecha de papa?",
+      [
+        "¿Son palitos largos?",
+        "Papas fritas",
+        "Papas con queso"
+      ],
+      [
+        "¿Lleva pollo?",
+        "Nuggets de pollo",
+        "Aros de cebolla"
+      ]
+    ],
+    [
+      "¿Es dulce?",
+      "Churro",
+      [
+        "¿Lleva mariscos?",
+        "Ceviche",
+        "Elote en vaso"
+      ]
+    ]
+  ]
+]

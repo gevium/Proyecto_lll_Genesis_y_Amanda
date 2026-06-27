@@ -88,7 +88,7 @@ class InterfazJuego:
         tk.Frame(parent, bg=COLOR_ACENTO, height=2).pack(fill="x", pady=12)
     
     #Funcion que permite guardar manualmente el arbol en curso
-    def _guardar_manual(self):
+    def guardar_manual(self):
         ruta = filedialog.asksaveasfilename(title="Guardar árbol", defaultextension=".json", filetypes=[("Archivos JSON", "*.json")])
         
         if not ruta: #si no establece la ruta para el archivo
@@ -133,8 +133,8 @@ class InterfazJuego:
 
         #Creacion de botones
         self.boton(frame, "Jugar con árbol predeterminado", self.iniciar_partida, COLOR_ACENTO).pack(pady=4)
-        self.boton(frame, "Cargar árbol desde archivo", self._cargar_archivo, COLOR_ACENTO2).pack(pady=4)
-        self.boton(frame, "Guardar árbol actual", self._guardar_manual, COLOR_ACENTO2).pack(pady=4)
+        self.boton(frame, "Cargar árbol desde archivo", self.cargar_archivo, COLOR_ACENTO2).pack(pady=4)
+        self.boton(frame, "Guardar árbol actual", self.guardar_manual, COLOR_ACENTO2).pack(pady=4)
         self.boton(frame, "Salir", self.root.quit, "#8B3A3A").pack(pady=4)
         
     """
@@ -308,7 +308,7 @@ class InterfazJuego:
     """
     
     #Abre un dialogo para elegir un archivo JSON y carga el arbol guardado en el
-    def _cargar_archivo(self):
+    def cargar_archivo(self):
         ruta = filedialog.askopenfilename(
             title="Selecciona un árbol guardado",
             filetypes=[("Archivos JSON", "*.json"), ("Todos los archivos", "*.*")]
