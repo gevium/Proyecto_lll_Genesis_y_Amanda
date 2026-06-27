@@ -1,0 +1,53 @@
+[
+  "¿Es un plato a base de maíz?",
+  [
+    "¿Se sirve enrollado o doblado?",
+    [
+      "¿Lleva relleno de carne o queso?",
+      [
+        "¿Se cocina en hoja de maíz o banana?",
+        "Tamal",
+        "Taco"
+      ],
+      "Quesadilla"
+    ],
+    [
+      "¿Es una sopa o caldo?",
+      "Pozole",
+      [
+        "¿Se fríe en aceite?",
+        "Tostada",
+        "Arepa"
+      ]
+    ]
+  ],
+  [
+    "¿Es un plato de arroz?",
+    [
+      "¿Lleva frijoles mezclados?",
+      [
+        "¿Se sirve con carne o huevo encima?",
+        "Gallo Pinto con huevo",
+        "Casado"
+      ],
+      [
+        "¿Tiene mariscos?",
+        "Arroz con camarones",
+        "Arroz con pollo"
+      ]
+    ],
+    [
+      "¿Es una sopa o caldo?",
+      [
+        "¿Lleva papa y maíz?",
+        "Sancocho",
+        "Sopa de frijoles"
+      ],
+      [
+        "¿Es a base de carne asada?",
+        "Carne en vara",
+        "Ceviche"
+      ]
+    ]
+  ]
+]

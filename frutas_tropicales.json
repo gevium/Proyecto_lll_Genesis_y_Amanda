@@ -1,0 +1,57 @@
+[
+  "¿Es una fruta tropical?",
+  [
+    "¿Tiene cáscara gruesa o espinosa?",
+    [
+      "¿Su interior es de color naranja o amarillo?",
+      [
+        "¿Tiene semillas grandes en el centro?",
+        "Papaya",
+        "Mango"
+      ],
+      [
+        "¿Huele muy fuerte?",
+        "Durian",
+        "Maracuyá"
+      ]
+    ],
+    [
+      "¿Crece en racimos?",
+      [
+        "¿Es pequeña y redonda?",
+        "Uva",
+        "Banano"
+      ],
+      [
+        "¿Tiene interior rojo o rosado?",
+        "Sandía",
+        "Guanábana"
+      ]
+    ]
+  ],
+  [
+    "¿Crece en climas fríos o templados?",
+    [
+      "¿Es de color rojo cuando está madura?",
+      [
+        "¿Es pequeña y redonda?",
+        "Cereza",
+        "Manzana"
+      ],
+      [
+        "¿Tiene forma alargada?",
+        "Pera",
+        "Durazno"
+      ]
+    ],
+    [
+      "¿Tiene cítricos?",
+      [
+        "¿Es de sabor muy ácido?",
+        "Limón",
+        "Naranja"
+      ],
+      "Kiwi"
+    ]
+  ]
+]

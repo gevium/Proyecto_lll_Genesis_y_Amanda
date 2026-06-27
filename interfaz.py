@@ -24,7 +24,7 @@ COLOR_ADVERTENCIA = "#D97706"   # naranja oscuro tipo calabaza
 FUENTE_TITULO    = ("Georgia", 26, "bold")
 FUENTE_SUBTITULO = ("Georgia", 14)
 FUENTE_PREGUNTA  = ("Cambria", 16, "bold")
-FUENTE_BOTON     = ("Segoe UI", 12, "bold")
+FUENTEboton     = ("Segoe UI", 12, "bold")
 FUENTE_NORMAL    = ("Segoe UI", 11)
 FUENTE_PEQUENA   = ("Segoe UI", 9)
 
@@ -39,37 +39,35 @@ class InterfazJuego:
         self.manejador = ManejadorArchivo() #se crea un gestor de archivos
         self.archivo_actual: str | None = None
 
-        self._configurar_ventana()
-        self._mostrar_pantalla_inicio()
+        self.configurar_ventana()
+        self.mostrar_pantalla_inicio()
 
 
     #Permite configurar la funcionalidad y apariencia de la ventana
-    def _configurar_ventana(self):
+    def configurar_ventana(self):
         self.root.title("Adivina en qué estoy pensando")
-        self.root.geometry("700x520")
-        self.root.minsize(600, 460)
+        self.root.geometry("700x600")
         self.root.configure(bg=COLOR_FONDO)
         self.root.resizable(True, True)
 
-        self.root.geometry("700x520")
 
     #Elimina todos los widgets del frame principal
-    def _limpiar_pantalla(self):
+    def limpiar_pantalla(self):
         for widget in self.root.winfo_children():
             widget.destroy()
 
     #funcion para crear el frame principal
-    def _crear_frame_central(self):
+    def crear_frame_central(self):
         frame = tk.Frame(self.root, bg=COLOR_FONDO)
         frame.pack(expand=True, fill="both", padx=40, pady=30)
         return frame
 
     #E: Parent, texto, funcion del boton, color y ancho
     #S: boton
-    def _boton(self, parent, texto, comando, color=COLOR_ACENTO, ancho=22):
+    def boton(self, parent, texto, comando, color=COLOR_ACENTO, ancho=22):
         btn = tk.Button(
             parent, text=texto, command=comando,
-            bg=color, fg="white", font=FUENTE_BOTON,
+            bg=color, fg="white", font=FUENTEboton,
             relief="flat", bd=0, padx=16, pady=10,
             cursor="hand2", width=ancho,
             activebackground=color, activeforeground="white"
@@ -78,7 +76,7 @@ class InterfazJuego:
 
     #E: parent, texto, fuente, color y largo
     #Permite crear labels con diferentes textos
-    def _etiqueta(self, parent, texto, fuente=FUENTE_NORMAL, color=COLOR_TEXTO, wraplength=580):
+    def etiqueta(self, parent, texto, fuente=FUENTE_NORMAL, color=COLOR_TEXTO, wraplength=580):
         return tk.Label(
             parent, text=texto, font=fuente,
             bg=COLOR_FONDO, fg=color,
@@ -86,8 +84,21 @@ class InterfazJuego:
         )
 
     #Funcion (Separador para mayor orden visual)
-    def _separador(self, parent):
+    def separador(self, parent):
         tk.Frame(parent, bg=COLOR_ACENTO, height=2).pack(fill="x", pady=12)
+    
+    #Funcion que permite guardar manualmente el arbol en curso
+    def _guardar_manual(self):
+        ruta = filedialog.asksaveasfilename(title="Guardar árbol", defaultextension=".json", filetypes=[("Archivos JSON", "*.json")])
+        
+        if not ruta: #si no establece la ruta para el archivo
+            return
+        exito, error = self.manejador.guardar(self.arbol, ruta)
+        if exito:
+            self.archivo_actual = ruta
+            messagebox.showinfo("Guardado", f"Árbol guardado en:\n{ruta}")
+        else:
+            messagebox.showerror("Error al guardar", error)
 
     """
     ###########################
@@ -96,23 +107,23 @@ class InterfazJuego:
     """
 
     #Funcion que crea el primer frame de pantalla
-    def _mostrar_pantalla_inicio(self):
-        self._limpiar_pantalla()
-        frame = self._crear_frame_central()
+    def mostrar_pantalla_inicio(self):
+        self.limpiar_pantalla()
+        frame = self.crear_frame_central()
 
         #TITULARES
-        self._etiqueta(frame, "Adivina en qué estoy pensando...",
+        self.etiqueta(frame, "Adivina en qué estoy pensando...",
                        fuente=FUENTE_TITULO, color=COLOR_ACENTO).pack()
-        self._etiqueta(frame, "Piensa en una comida o fruta e intentaré adivinarla",
+        self.etiqueta(frame, "Piensa en una comida o fruta e intentaré adivinarla",
                        fuente=FUENTE_SUBTITULO, color=COLOR_TEXTO_SUB).pack(pady=(6, 2))
 
-        self._separador(frame)
+        self.separador(frame)
 
         #INSTRUCCIONES
         instrucciones = (
             "Reglas:\n"
             " • Piensa en algo\n"
-            " • Responde Sí o No a mis preguntas\n"
+            " • Responde 'Sí' o 'No' a las preguntas\n"
             " • Si no adivino, me enseñas y aprendo para siempre"
         )
 
@@ -121,13 +132,11 @@ class InterfazJuego:
                  relief="flat", bd=0).pack(fill="x", pady=(0, 16))
 
         #Creacion de botones
-        self._boton(frame, "Jugar con árbol predeterminado",
-                    self._iniciar_partida, COLOR_ACENTO).pack(pady=4)
-        self._boton(frame, "Cargar árbol desde archivo",
-                    self._cargar_archivo, COLOR_ACENTO2).pack(pady=4)
-        self._boton(frame, "Salir", self.root.quit, "#8B3A3A").pack(pady=4)
-
-
+        self.boton(frame, "Jugar con árbol predeterminado", self.iniciar_partida, COLOR_ACENTO).pack(pady=4)
+        self.boton(frame, "Cargar árbol desde archivo", self._cargar_archivo, COLOR_ACENTO2).pack(pady=4)
+        self.boton(frame, "Guardar árbol actual", self._guardar_manual, COLOR_ACENTO2).pack(pady=4)
+        self.boton(frame, "Salir", self.root.quit, "#8B3A3A").pack(pady=4)
+        
     """
     ###########################
     2. PANTALLA DE JUEGO (pregunta actual / adivinanza)
@@ -135,53 +144,53 @@ class InterfazJuego:
     """
 
     #Reinicia el recorrido del arbol y muestra el primer paso
-    def _iniciar_partida(self):
+    def iniciar_partida(self):
         self.arbol.reiniciar_partida()
-        self._mostrar_paso_actual()
+        self.mostrar_paso_actual()
 
     #Decide si el nodo actual es pregunta u hoja, y dibuja la pantalla correspondiente
-    def _mostrar_paso_actual(self):
-        self._limpiar_pantalla()
-        frame = self._crear_frame_central()
+    def mostrar_paso_actual(self):
+        self.limpiar_pantalla()
+        frame = self.crear_frame_central()
 
         if self.arbol.es_hoja_actual():
-            self._mostrar_pantalla_adivinanza(frame)    #Llega a una respuesta
+            self.mostrar_pantalla_adivinanza(frame)    #Llega a una respuesta
         else:
-            self._mostrar_pantalla_pregunta(frame)      #Todavia hay pregunta
+            self.mostrar_pantalla_pregunta(frame)      #Todavia hay pregunta
 
     #E: frame donde dibujar
     #Muestra la pregunta actual del nodo y los botones Si/No
-    def _mostrar_pantalla_pregunta(self, frame):
+    def mostrar_pantalla_pregunta(self, frame):
         pregunta = self.arbol.obtener_pregunta_actual()
 
-        self._etiqueta(frame, pregunta, fuente=FUENTE_PREGUNTA, color=COLOR_TEXTO).pack(pady=(0, 24))
+        self.etiqueta(frame, pregunta, fuente=FUENTE_PREGUNTA, color=COLOR_TEXTO).pack(pady=(0, 24))
 
-        frame_botones = tk.Frame(frame, bg=COLOR_FONDO)
-        frame_botones.pack(pady=10)
+        framebotones = tk.Frame(frame, bg=COLOR_FONDO)
+        framebotones.pack(pady=10)
 
-        self._boton(frame_botones, "Sí", lambda: self._responder(True), COLOR_SI, ancho=12).pack(side="left", padx=10)
-        self._boton(frame_botones, "No", lambda: self._responder(False), COLOR_NO, ancho=12).pack(side="left", padx=10)
+        self.boton(framebotones, "Sí", lambda: self.responder(True), COLOR_SI, ancho=12).pack(side="left", padx=10)
+        self.boton(framebotones, "No", lambda: self.responder(False), COLOR_NO, ancho=12).pack(side="left", padx=10)
 
     #E: booleano (True = Si, False = No)
     #Avanza el recorrido del arbol segun la respuesta y redibuja la pantalla
-    def _responder(self, respuesta_si):
+    def responder(self, respuesta_si):
         self.arbol.responder(respuesta_si)
-        self._mostrar_paso_actual()
+        self.mostrar_paso_actual()
 
     #E: frame donde dibujar
     #Muestra la respuesta final que adivina la app y pregunta si acertó
-    def _mostrar_pantalla_adivinanza(self, frame):
+    def mostrar_pantalla_adivinanza(self, frame):
         respuesta = self.arbol.obtener_pregunta_actual()
 
-        self._etiqueta(frame, f"¿Estabas pensando en {respuesta}?",
+        self.etiqueta(frame, f"¿Estabas pensando en {respuesta}?",
                        fuente=FUENTE_PREGUNTA, color=COLOR_ACENTO).pack(pady=(0, 24))
 
-        frame_botones = tk.Frame(frame, bg=COLOR_FONDO)
-        frame_botones.pack(pady=10)
+        framebotones = tk.Frame(frame, bg=COLOR_FONDO)
+        framebotones.pack(pady=10)
 
         #Si acierta enseña pantalla de victoria, si falla enseña formulario de aprendizaje
-        self._boton(frame_botones, "Acertaste", self._mostrar_pantalla_victoria, COLOR_SI, ancho=16).pack(side="left", padx=10)
-        self._boton(frame_botones, "Fallaste", self._mostrar_pantalla_aprendizaje, COLOR_NO, ancho=16).pack(side="left", padx=10)
+        self.boton(framebotones, "Acertaste", self.mostrar_pantalla_victoria, COLOR_SI, ancho=16).pack(side="left", padx=10)
+        self.boton(framebotones, "Fallaste", self.mostrar_pantalla_aprendizaje, COLOR_NO, ancho=16).pack(side="left", padx=10)
 
     """
     ###########################
@@ -189,15 +198,16 @@ class InterfazJuego:
     ###########################
     """
     #Muestra el mensaje de victoria y permite jugar de nuevo o salir
-    def _mostrar_pantalla_victoria(self):
-        self._limpiar_pantalla()
-        frame = self._crear_frame_central()
+    def mostrar_pantalla_victoria(self):
+        self.limpiar_pantalla()
+        frame = self.crear_frame_central()
 
-        self._etiqueta(frame, "¡Adiviné!", fuente=FUENTE_TITULO, color=COLOR_EXITO).pack(pady=(0, 16))
+        self.etiqueta(frame, "¡Adiviné!", fuente=FUENTE_TITULO, color=COLOR_EXITO).pack(pady=(0, 16))
 
         #Permite reiniciar la partida desde la raiz
-        self._boton(frame, "Jugar otra vez", self._iniciar_partida, COLOR_ACENTO).pack(pady=6)
-        self._boton(frame, "Salir", self.root.quit, "#8B3A3A").pack(pady=6)
+        self.boton(frame, "Jugar otra vez", self.iniciar_partida, COLOR_ACENTO).pack(pady=6)
+        self.boton(frame, "Volver al menú", self.mostrar_pantalla_inicio, COLOR_ACENTO2).pack(pady=6)
+        self.boton(frame, "Salir", self.root.quit, "#8B3A3A").pack(pady=6)
 
 
     """
@@ -206,29 +216,27 @@ class InterfazJuego:
     ###########################
     """
     #Pide la respuesta correcta, una pregunta nueva y si esa pregunta es Si/No para la nueva respuesta
-    def _mostrar_pantalla_aprendizaje(self):
-        self._limpiar_pantalla()
-        frame = self._crear_frame_central()
+    def mostrar_pantalla_aprendizaje(self):
+        self.limpiar_pantalla()
+        frame = self.crear_frame_central()
 
         incorrecta = self.arbol.obtener_pregunta_actual()
 
-        self._etiqueta(frame, f"Pensé en \"{incorrecta}\", pero no era correcto.",
+        self.etiqueta(frame, f"Pensé en \"{incorrecta}\", pero no era correcto.",
                        fuente=FUENTE_NORMAL, color=COLOR_TEXTO_SUB).pack(pady=(0, 16))
 
         #Campo: respuesta correcta
-        self._etiqueta(frame, "¿En qué estabas pensando?", color=COLOR_TEXTO).pack(anchor="w")
+        self.etiqueta(frame, "¿En qué estabas pensando?", color=COLOR_TEXTO).pack(anchor="w", padx = 5, fill = "x")
         entrada_respuesta = tk.Entry(frame, font=FUENTE_NORMAL, width=40)
-        entrada_respuesta.pack(pady=(2, 12))
+        entrada_respuesta.pack(fill = "x", padx=5, pady=(2, 12))
 
         #Campo: pregunta nueva que diferencia ambas respuestas
-        self._etiqueta(frame, f"Escribe una pregunta que diferencie tu respuesta de \"{incorrecta}\":",
-                       color=COLOR_TEXTO).pack(anchor="w")
+        self.etiqueta(frame, f"Escribe una pregunta que diferencie tu respuesta de \"{incorrecta}\":", color=COLOR_TEXTO).pack(anchor="w", padx = 5, fill = "x")
         entrada_pregunta = tk.Entry(frame, font=FUENTE_NORMAL, width=40)
-        entrada_pregunta.pack(pady=(2, 12))
+        entrada_pregunta.pack(fill = "x", padx=5, pady=(2, 12))
 
         #Campo: la respuesta a esa nueva pregunta para la respuesta correcta (Si o No)
-        self._etiqueta(frame, "Para tu respuesta, ¿la contestación a esa pregunta es Sí o No?",
-                       color=COLOR_TEXTO).pack(anchor="w")
+        self.etiqueta(frame, "Para tu respuesta, ¿la contestación a esa pregunta es Sí o No?", color=COLOR_TEXTO).pack(anchor="w", padx = 5, fill = "x")
 
         valor_si_no = tk.StringVar(value="")
         frame_radios = tk.Frame(frame, bg=COLOR_FONDO)
@@ -266,14 +274,14 @@ class InterfazJuego:
             self.arbol.aprender(respuesta_correcta, nueva_pregunta, eleccion == "si")
 
             #Guardado automatico obligatorio tras aprender, para conservar el avance
-            self._guardar_automatico()
+            self.guardar_automatico()
 
-            self._mostrar_pantalla_aprendizaje_exitosa()
+            self.mostrar_pantalla_aprendizaje_exitosa()
 
-        self._boton(frame, "Guardar y continuar", confirmar, COLOR_ACENTO).pack(pady=6)
+        self.boton(frame, "Guardar y continuar", confirmar, COLOR_ACENTO).pack(pady=6)
 
     #Guarda el arbol en el archivo actual (o en uno por defecto si nunca se cargo ninguno)
-    def _guardar_automatico(self):
+    def guardar_automatico(self):
         ruta = self.archivo_actual or "arbol_guardado.json"
         exito, error = self.manejador.guardar(self.arbol, ruta)
         if not exito:
@@ -282,15 +290,16 @@ class InterfazJuego:
             self.archivo_actual = ruta
 
     #Confirma que se aprendio y guardo, y permite continuar jugando
-    def _mostrar_pantalla_aprendizaje_exitosa(self):
-        self._limpiar_pantalla()
-        frame = self._crear_frame_central()
+    def mostrar_pantalla_aprendizaje_exitosa(self):
+        self.limpiar_pantalla()
+        frame = self.crear_frame_central()
 
-        self._etiqueta(frame, "¡Gracias! Aprendí algo nuevo.", fuente=FUENTE_PREGUNTA, color=COLOR_EXITO).pack(pady=(0, 8))
-        self._etiqueta(frame, f"Guardado en: {self.archivo_actual}", fuente=FUENTE_PEQUENA, color=COLOR_TEXTO_SUB).pack(pady=(0, 16))
+        self.etiqueta(frame, "¡Gracias! Aprendí algo nuevo.", fuente=FUENTE_PREGUNTA, color=COLOR_EXITO).pack(pady=(0, 8))
+        self.etiqueta(frame, f"Guardado en: {self.archivo_actual}", fuente=FUENTE_PEQUENA, color=COLOR_TEXTO_SUB).pack(pady=(0, 16))
 
-        self._boton(frame, "Jugar otra vez", self._iniciar_partida, COLOR_ACENTO).pack(pady=6)
-        self._boton(frame, "Salir", self.root.quit, "#8B3A3A").pack(pady=6)
+        self.boton(frame, "Jugar otra vez", self.iniciar_partida, COLOR_ACENTO).pack(pady=6)
+        self.boton(frame, "Volver al menú", self.mostrar_pantalla_inicio, COLOR_ACENTO2).pack(pady=6)
+        self.boton(frame, "Salir", self.root.quit, "#8B3A3A").pack(pady=6)
 
     """
     ###########################
@@ -320,4 +329,4 @@ class InterfazJuego:
             self.archivo_actual = ruta
             messagebox.showinfo("Árbol cargado", f"Se cargó correctamente:\n{ruta}")
 
-        self._iniciar_partida()
+        self.iniciar_partida()

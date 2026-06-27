@@ -1,0 +1,105 @@
+[
+  "¿Es un snack salado?",
+  [
+    "¿Está hecho de papa o maíz?",
+    [
+      "¿Es crujiente y frito?",
+      [
+        "¿Tiene forma de tortilla o tostada?",
+        "Nachos con guacamole",
+        [
+          "¿Es en hojuelas delgadas?",
+          "Papas fritas de bolsa",
+          "Chicharrón"
+        ]
+      ],
+      [
+        "¿Se sirve caliente?",
+        "Palomitas de maíz",
+        "Elote en vaso"
+      ]
+    ],
+    [
+      "¿Lleva queso?",
+      [
+        "¿Se hornea o gratina?",
+        "Quesadilla",
+        [
+          "¿Es para untar?",
+          "Dip de queso con totopos",
+          "Galletas con queso crema"
+        ]
+      ],
+      [
+        "¿Es a base de pan?",
+        [
+          "¿Lleva embutido?",
+          "Sándwich de jamón",
+          "Pan con mantequilla de ajo"
+        ],
+        [
+          "¿Es a base de frutos secos?",
+          "Mix de nueces y almendras",
+          "Edamame con sal"
+        ]
+      ]
+    ]
+  ],
+  [
+    "¿Es un snack dulce?",
+    [
+      "¿Está hecho con chocolate?",
+      [
+        "¿Lleva relleno?",
+        [
+          "¿El relleno es de crema o caramelo?",
+          "Bombón de caramelo",
+          "Trufa de chocolate"
+        ],
+        [
+          "¿Tiene frutos secos?",
+          "Chocolate con almendras",
+          "Barra de chocolate oscuro"
+        ]
+      ],
+      [
+        "¿Es horneado?",
+        [
+          "¿Es individual o de un bocado?",
+          "Cookie de chips de chocolate",
+          "Muffin de arándanos"
+        ],
+        [
+          "¿Está hecho con frutas?",
+          "Paleta de fruta natural",
+          [
+            "¿Es gelatinoso o gomoso?",
+            "Gomitas de frutas",
+            "Barras de granola"
+          ]
+        ]
+      ]
+    ],
+    [
+      "¿Es una bebida de snack?",
+      [
+        "¿Es fría?",
+        [
+          "¿Lleva leche?",
+          "Malteada de vainilla",
+          "Agua fresca de jamaica"
+        ],
+        "Café con leche caliente"
+      ],
+      [
+        "¿Es un snack saludable sin azúcar ni sal añadida?",
+        [
+          "¿Es una fruta entera?",
+          "Manzana con mantequilla de maní",
+          "Zanahoria con hummus"
+        ],
+        "Yogur griego con miel"
+      ]
+    ]
+  ]
+]

@@ -1,0 +1,57 @@
+[
+  "¿Es un postre horneado?",
+  [
+    "¿Está hecho principalmente con chocolate?",
+    [
+      "¿Tiene relleno líquido o cremoso?",
+      "Volcán de chocolate",
+      [
+        "¿Lleva capas de bizcocho?",
+        "Torta de chocolate",
+        "Brownie"
+      ]
+    ],
+    [
+      "¿Lleva frutas?",
+      [
+        "¿Tiene masa quebrada o hojaldre?",
+        "Pay de manzana",
+        "Muffin de arándanos"
+      ],
+      [
+        "¿Está hecho con queso crema?",
+        "Cheesecake",
+        "Queque de vainilla"
+      ]
+    ]
+  ],
+  [
+    "¿Es un postre frío o helado?",
+    [
+      "¿Está hecho con leche o crema?",
+      [
+        "¿Se sirve en copa o vaso?",
+        "Helado de vainilla",
+        "Tres leches"
+      ],
+      [
+        "¿Tiene base de galleta?",
+        "Carlota de limón",
+        "Paleta de fruta"
+      ]
+    ],
+    [
+      "¿Es un dulce en almíbar?",
+      [
+        "¿Está hecho con leche?",
+        "Cajeta",
+        "Dulce de zapote"
+      ],
+      [
+        "¿Es gelatinoso?",
+        "Flan",
+        "Arroz con leche"
+      ]
+    ]
+  ]
+]
