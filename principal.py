@@ -23,7 +23,7 @@ class ManejadorArchivo:
 
 
             with open(ruta, "w", encoding="utf-8") as archivo:
-                #dumb: permite convertir automáticamente los tipos de datos de Python en su forma equivalente en Json
+                #Permite convertir automáticamente los tipos de datos de Python en su forma equivalente en Json
                 #ensure_ascii permite asegurar que el archivo solo contenga caracteres ascii
                 json.dump(datos, archivo, ensure_ascii=False, indent=2)
 
@@ -72,12 +72,16 @@ class ManejadorArchivo:
     def _validar_estructura(self, datos):
         if isinstance(datos, str):
             return len(datos.strip()) > 0      #hoja valida si no esta vacia
+        
         if not isinstance(datos, list):
             return False                        #debe ser string o lista
+        
         if len(datos) != 3:
             return False                        #toda lista debe tener raiz, hi, hd
+        
         if not isinstance(datos[0], str) or not datos[0].strip():
             return False                        #la raiz debe ser string no vacio
+        
         return (self._validar_estructura(datos[1]) and    #validar rama Si
                 self._validar_estructura(datos[2]))        #validar rama No
 
@@ -108,7 +112,7 @@ FUENTE_NORMAL    = ("Segoe UI", 11)
 FUENTE_PEQUENA   = ("Segoe UI", 9)
 
 #Clase para manejar la inicializacion del juego
-#(manejo de pantallas, mensajes de resultado, formulario de aprendizaje...)
+#(manejo de pantallas, mensajes de resultado, formulario de aprendizaje)
 class InterfazJuego:
 
     #constructor
@@ -206,8 +210,6 @@ class InterfazJuego:
                     self._cargar_archivo, COLOR_ACENTO2).pack(pady=4)
         self._boton(frame, "Salir", self.root.quit, "#8B3A3A").pack(pady=4)
 
-        #Pie de la pagina
-        #self._etiqueta(frame, "Taller de Programación III — 2026", fuente=FUENTE_PEQUENA, color=COLOR_TEXTO_SUB).pack(side="bottom")
 
     """
     ###########################
@@ -215,7 +217,7 @@ class InterfazJuego:
     ###########################
     """
 
-    #Reinicia el recorrido del arbol y muestra el primer paso (RF-04, RF-12)
+    #Reinicia el recorrido del arbol y muestra el primer paso
     def _iniciar_partida(self):
         self.arbol.reiniciar_partida()
         self._mostrar_paso_actual()
@@ -226,12 +228,12 @@ class InterfazJuego:
         frame = self._crear_frame_central()
 
         if self.arbol.es_hoja_actual():
-            self._mostrar_pantalla_adivinanza(frame)   #RF-06: llegamos a una respuesta
+            self._mostrar_pantalla_adivinanza(frame)    #Llega a una respuesta
         else:
-            self._mostrar_pantalla_pregunta(frame)      #RF-04/RF-05: todavia hay pregunta
+            self._mostrar_pantalla_pregunta(frame)      #Todavia hay pregunta
 
     #E: frame donde dibujar
-    #Muestra la pregunta actual del nodo y los botones Si/No (RF-04, RF-13)
+    #Muestra la pregunta actual del nodo y los botones Si/No
     def _mostrar_pantalla_pregunta(self, frame):
         pregunta = self.arbol.obtener_pregunta_actual()
 
@@ -244,13 +246,13 @@ class InterfazJuego:
         self._boton(frame_botones, "No", lambda: self._responder(False), COLOR_NO, ancho=12).pack(side="left", padx=10)
 
     #E: booleano (True = Si, False = No)
-    #Avanza el recorrido del arbol segun la respuesta y redibuja la pantalla (RF-04)
+    #Avanza el recorrido del arbol segun la respuesta y redibuja la pantalla
     def _responder(self, respuesta_si):
         self.arbol.responder(respuesta_si)
         self._mostrar_paso_actual()
 
     #E: frame donde dibujar
-    #Muestra la respuesta final que adivina la app y pregunta si acerto (RF-06)
+    #Muestra la respuesta final que adivina la app y pregunta si acertó
     def _mostrar_pantalla_adivinanza(self, frame):
         respuesta = self.arbol.obtener_pregunta_actual()
 
@@ -260,7 +262,7 @@ class InterfazJuego:
         frame_botones = tk.Frame(frame, bg=COLOR_FONDO)
         frame_botones.pack(pady=10)
 
-        #RF-07: si acierta -> pantalla de victoria. RF-08: si falla -> formulario de aprendizaje
+        #Si acierta enseña pantalla de victoria, si falla enseña formulario de aprendizaje
         self._boton(frame_botones, "Acertaste", self._mostrar_pantalla_victoria, COLOR_SI, ancho=16).pack(side="left", padx=10)
         self._boton(frame_botones, "Fallaste", self._mostrar_pantalla_aprendizaje, COLOR_NO, ancho=16).pack(side="left", padx=10)
 
@@ -276,7 +278,7 @@ class InterfazJuego:
 
         self._etiqueta(frame, "¡Adiviné!", fuente=FUENTE_TITULO, color=COLOR_EXITO).pack(pady=(0, 16))
 
-        #RF-12: permite reiniciar la partida desde la raiz
+        #Permite reiniciar la partida desde la raiz
         self._boton(frame, "Jugar otra vez", self._iniciar_partida, COLOR_ACENTO).pack(pady=6)
         self._boton(frame, "Salir", self.root.quit, "#8B3A3A").pack(pady=6)
 
@@ -326,13 +328,13 @@ class InterfazJuego:
                        font=FUENTE_NORMAL).pack(side="left", padx=10)
 
         #E: lee los widgets de arriba
-        #Valida los campos (RF-14) y, si todo esta bien, actualiza y guarda el arbol (RF-09, RF-10)
+        #Valida los campos y, si todo esta bien, actualiza y guarda el arbol
         def confirmar():
             respuesta_correcta = entrada_respuesta.get().strip()
             nueva_pregunta = entrada_pregunta.get().strip()
             eleccion = valor_si_no.get()
 
-            #RF-14: ningun campo puede quedar vacio
+            #Ningun campo puede quedar vacio
             if not respuesta_correcta:
                 messagebox.showerror("Falta información", "Debes escribir la respuesta correcta.")
                 return
@@ -343,10 +345,10 @@ class InterfazJuego:
                 messagebox.showerror("Falta información", "Debes indicar si la respuesta es Sí o No.")
                 return
 
-            #RF-09: el arbol reemplaza la hoja incorrecta por la nueva pregunta con sus dos ramas
+            #El arbol reemplaza la hoja incorrecta por la nueva pregunta con sus dos ramas
             self.arbol.aprender(respuesta_correcta, nueva_pregunta, eleccion == "si")
 
-            #RF-10/RF-11: guardado automatico obligatorio tras aprender, para conservar el avance
+            #Guardado automatico obligatorio tras aprender, para conservar el avance
             self._guardar_automatico()
 
             self._mostrar_pantalla_aprendizaje_exitosa()
@@ -362,7 +364,7 @@ class InterfazJuego:
         else:
             self.archivo_actual = ruta
 
-    #Confirma que se aprendio y guardo, y permite continuar jugando (RF-12)
+    #Confirma que se aprendio y guardo, y permite continuar jugando
     def _mostrar_pantalla_aprendizaje_exitosa(self):
         self._limpiar_pantalla()
         frame = self._crear_frame_central()
@@ -392,8 +394,8 @@ class InterfazJuego:
         exito, error = self.manejador.cargar(self.arbol, ruta)
 
         if not exito:
-            #RF-02: si el archivo no existe, esta vacio o es invalido, avisamos y
-            #seguimos con un arbol por defecto, sin cerrar la aplicacion
+            #Si el archivo no existe, esta vacio o es invalido, se avisa y
+            #se sigue con un arbol por defecto, sin cerrar la aplicacion
             messagebox.showerror("Error al cargar", error + "\nSe usará el árbol por defecto.")
             self.arbol = ArbolDecision()
             self.archivo_actual = None
