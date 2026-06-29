@@ -38,7 +38,11 @@
       [
         "¿Lleva mariscos?",
         "Ceviche",
-        "Elote en vaso"
+        [
+          "¿El platillo contiene embutidos?",
+          "Salchipapas",
+          "Elote en vaso"
+        ]
       ]
     ]
   ]
